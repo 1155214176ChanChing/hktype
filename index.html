@@ -52,6 +52,8 @@ header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--surfa
 .stat-cell+.stat-cell{border-left:1px solid var(--line)}
 .stats .k{font-size:10px;letter-spacing:1px;color:var(--muted);font-weight:800;white-space:nowrap}
 .stats .v{font-size:18px;font-weight:900;line-height:1.15;font-variant-numeric:tabular-nums}
+#doneCount{font-size:15px;white-space:nowrap;letter-spacing:-.3px}
+#donePct{white-space:nowrap}
 .card{border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:14px;background:var(--surface);box-shadow:var(--shadow-md);animation:rise .4s ease}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .progress{height:6px;background:var(--line)}.progress>div{height:100%;background:var(--ink);width:0%;transition:width .35s ease;box-shadow:0 0 12px rgba(127,127,135,.8)}
@@ -167,7 +169,6 @@ footer{border-top:1px solid var(--line)}
 .diff-btns{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow-sm)}
 .diff-btns button{flex:1;min-width:0;border:0;background:transparent;color:var(--muted);border-radius:11px;padding:10px 0;font-weight:850;font-size:14px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .diff-btns button.on{background:var(--accent);color:var(--accent-ink);box-shadow:var(--shadow-md)}
-.diff-prog{font-size:11px;color:var(--muted);text-align:right;padding:4px 8px 0;font-variant-numeric:tabular-nums}
 .vkbd{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);padding:10px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .vkbd-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .vkbd-title{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted)}
@@ -225,7 +226,6 @@ footer{border-top:1px solid var(--line)}
 .side-panel>.stats{margin:0;border:0;border-radius:0;box-shadow:none;border-bottom:1px solid var(--line)}
 .side-panel>#diffRow{margin:0}
 .side-panel .diff-btns{border:0;border-radius:0;box-shadow:none;background:transparent}
-.side-panel .diff-prog{padding:2px 10px 8px}
 .col-side>#cjTableWrap{margin-top:10px;flex:none}
 #panel-type,#panel-word,#panel-mistake,#panel-correct,#guideToggle,.guide,.wrap>footer{grid-column:1;min-width:0}
 body.side-cj .cjtable-head{padding:8px 12px}
@@ -319,10 +319,10 @@ input[type=text]:focus{box-shadow:0 0 0 3px rgba(127,127,135,.28),0 0 26px rgba(
 <div class="col-side" id="colSide">
 <div class="side-panel" id="sidePanel">
 <div class="stats">
-<div class="stat-cell"><div class="k">分數</div><div class="v" id="score">0</div></div>
 <div class="stat-cell"><div class="k">連擊</div><div class="v" id="streak">0</div></div>
-<div class="stat-cell"><div class="k">已做</div><div class="v" id="qnum">0</div></div>
-<div class="stat-cell"><div class="k">錯題</div><div class="v" id="wrongCount">0</div></div>
+<div class="stat-cell"><div class="k">最高連擊</div><div class="v" id="maxStreak">0</div></div>
+<div class="stat-cell"><div class="k">完成率</div><div class="v" id="donePct">0%</div></div>
+<div class="stat-cell"><div class="k">已完成</div><div class="v" id="doneCount">0/0</div></div>
 </div>
 
 <div class="diff-row" id="diffRow">
@@ -333,7 +333,6 @@ input[type=text]:focus{box-shadow:0 0 0 3px rgba(127,127,135,.28),0 0 26px rgba(
 <button data-d="hell">地獄</button>
 <button data-d="mix">混合</button>
 </div>
-<div class="diff-prog" id="sliderInfo">載入中</div>
 </div>
 </div>
 <div class="cjtable-wrap" id="cjTableWrap" style="display:none">
@@ -436,7 +435,11 @@ hard:[["嘢","je5"],["咁","gam3"],["咗","zo2"],["呢","ni1"],["嗰","go2"],["�
 hell:[["龍","lung4"],["鳳","fung6"],["麟","leon4"],["麒","kei4"],["龜","gwai1"],["鶴","hok6"],["鷹","jing1"],["鵰","diu1"],["鸞","lyun4"],["懿","ji3"],["曦","hei1"],["曜","jiu6"],["晨","san4"],["昏","fan1"],["曉","hiu2"],["暉","fai1"],["晦","fui3"],["朧","lung4"],["朦","mung4"],["霓","ngai4"],["霞","haa4"],["霧","mou6"],["霜","soeng1"],["露","lou6"],["雹","bok6"],["霆","ting4"],["霹","pik1"],["靂","lik1"],["震","zan3"],["撼","ham6"],["慟","tung6"],["愴","cong3"],["悽","cai1"],["惻","cak1"],["憫","man5"],["憐","lin4"],["憂","jau1"],["鬱","wat1"],["愁","sau4"],["憾","ham6"],["懊","ou3"],["悔","fui3"],["悟","ng6"],["惠","wai6"],["慧","wai6"],["哲","zit3"],["睿","jeoi6"],["聖","sing3"],["賢","jin4"],["堯","jiu4"],["舜","seon3"],["禹","jyu5"],["湯","tong1"],["桀","git6"],["紂","zau6"],["幽","jau1"],["莊","zong1"],["諧","haai4"],["謔","joek3"],["詼","fui1"],["俳","paai4"],["優","jau1"],["伶","ling4"],["俐","lei6"],["俏","ciu3"],["俊","zeon3"],["傑","git6"],["豪","hou4"],["邁","maai6"],["慨","koi3"],["慷","hong3"],["凜","lam5"],["冽","lit6"],["凋","diu1"],["蔽","bai3"]],
 words:[["香港","hoeng1 gong2"],["飲茶","jam2 caa4"],["食飯","sik6 faan6"],["睇戲","tai2 hei3"],["行街","haang4 gaai1"],["返工","faan1 gung1"],["放假","fong3 gaa3"],["搭車","daap3 ce1"],["買嘢","maai5 je5"],["傾偈","king1 gai2"],["早晨","zou2 san4"],["午安","ng5 on1"],["晚安","maan5 on1"],["多謝","do1 ze6"],["唔該","m4 goi1"],["對唔住","deoi3 m4 zyu6"],["冇問題","mou5 man6 tai4"],["加油","gaa1 jau2"],["恭喜","gung1 hei2"],["發達","faat3 daat6"],["健康","gin6 hong1"],["快樂","faai3 lok6"],["幸福","hang6 fuk1"],["成功","sing4 gung1"],["失敗","sat1 baai6"],["努力","nou5 lik6"],["堅持","gin1 ci4"],["放棄","fong3 hei3"],["自由","zi6 jau4"],["平等","peng4 dang2"],["公正","gung1 zing3"],["民主","man4 zyu2"],["科學","fo1 hok6"],["藝術","ngai6 seot6"],["音樂","jam1 ngok6"],["電影","din6 jing2"],["電視","din6 si6"],["電話","din6 waa2"],["電腦","din6 nou5"],["手機","sau2 gei1"],["飛機","fei1 gei1"],["火車","fo2 ce1"],["巴士","baa1 si2"],["地鐵","dei6 tit3"],["的士","dik1 si2"],["單車","daan1 ce1"],["跑步","paau2 bou6"],["游水","jau4 seoi2"],["打波","daa2 bo1"],["踢波","tek3 bo1"],["煮飯","zyu2 faan6"],["洗衫","sai2 saam1"],["拖地","to1 dei6"],["抹窗","mut3 coeng1"],["買餸","maai5 sung3"],["斬料","zaam2 liu2"],["返學","faan1 hok6"],["溫書","wan1 syu1"],["考試","haau2 si3"],["畢業","bat1 jip6"],["揾工","wan2 gung1"],["見工","gin3 gung1"],["收工","sau1 gung1"],["開會","hoi1 wui2"],["加班","gaa1 baan1"],["出糧","ceot1 loeng4"],["使錢","sai2 cin4"],["慳錢","haan4 cin4"],["借錢","ze3 cin4"],["還錢","waan4 cin4"],["銀行","ngan4 hong4"],["提款","tai4 fun2"],["存款","cyun4 fun2"],["八達通","baat3 daat6 tung1"],["便利店","bin6 lei6 dim3"],["街市","gaai1 si5"],["茶餐廳","caa4 caan1 teng1"],["酒樓","zau2 lau4"],["大排檔","daai6 paai4 dong3"],["冰室","bing1 sat1"],["咖啡店","kaa3 fe1 dim3"],["書店","syu1 dim3"],["花店","faa1 dim3"],["士多","si6 do1"],["髮型屋","faat3 jing4 uk1"],["美容院","mei5 jung4 jyun2"],["做運動","zou6 wan6 dung6"],["睇醫生","tai2 ji1 sang1"],["食藥","sik6 joek6"],["打針","daa2 zam1"],["感冒","gam2 mou6"],["發燒","faat3 siu1"],["頭痛","tau4 tung3"],["肚痛","tou5 tung3"],["牙痛","ngaa4 tung3"],["失眠","sat1 min4"],["發夢","faat3 mung6"],["拍拖","paak3 to1"],["結婚","git3 fan1"],["生仔","saang1 zai2"]]
 };
-let curDiff='easy', score=0, streak=0, wrongTotal=0;
+let curDiff='easy', streak=0, maxStreak=0;
+try{const savedDiff=localStorage.getItem('hktype_diff');if(['easy','medium','hard','hell','mix'].indexOf(savedDiff)>=0)curDiff=savedDiff;}catch(e){}
+try{maxStreak=parseInt(localStorage.getItem('hktype_maxstreak')||'0',10)||0;}catch(e){maxStreak=0;}
+function saveMaxStreak(){try{localStorage.setItem('hktype_maxstreak',String(maxStreak));}catch(e){}}
+function bumpStreak(){streak++;if(streak>maxStreak){maxStreak=streak;saveMaxStreak();}}
 let state={type:{pool:[],idx:0,round:1,cur:null,locked:false},word:{pool:[],idx:0,round:1,cur:null,opts:[],locked:false}};
 let mistakes={};
 try{mistakes=JSON.parse(localStorage.getItem('hktype_mistakes')||'{}')}catch(e){mistakes={}}
@@ -454,13 +457,15 @@ for(const k of Object.keys(okWords)){if([...k].length===1&&PRI.has(k)){const p=d
 for(const k of Object.keys(mistakes)){if([...k].length===1&&PRI.has(k)){const p=disp(PRI.get(k));if(noTone(mistakes[k].j)!==noTone(p)){mistakes[k].j=p;chM=true;}}}
 if(chO)saveOk();if(chM)saveMist();
 }catch(e){}}
-function renderOk(){const keys=Object.keys(okWords);const c1=document.getElementById('okCount');if(c1)c1.textContent=keys.length;const t1=document.getElementById('okTotal');if(t1)t1.textContent=keys.length;const tb=document.getElementById('okTable');if(!tb)return;tb.innerHTML='';keys.sort((a,b)=>cmpVal(okVal(okWords[a],okSort.key),okVal(okWords[b],okSort.key),okSort.key)*okSort.dir);keys.forEach(k=>{const m=okWords[k];okWords[k]._k=k;const mt=(m.mt||(k.indexOf('cj:')===0?'cj':(k.indexOf('sc:')===0?'sc':'jyut')));const jshow=(mt==='jyut'?disp(m.j):m.j);const tr=document.createElement('tr');tr.innerHTML='<td style="font-size:22px;font-weight:900">'+mtBadge(m)+m.c+'</td><td><span class="kbd">'+jshow+'</span></td><td>'+m.ok+'</td><td>'+(m.tries!=null?m.tries+'次':'—')+'</td><td style="white-space:nowrap;font-size:12px;color:var(--muted)">'+fmtT(m.t)+'</td><td><button data-k="'+k+'" class="delOkBtn">刪除</button></td>';tb.appendChild(tr);});tb.querySelectorAll('.delOkBtn').forEach(b=>{b.onclick=()=>{delete okWords[b.dataset.k];saveOk();};});syncSortHeaders();}
+function renderOk(){const keys=Object.keys(okWords);const c1=document.getElementById('okCount');if(c1)c1.textContent=keys.length;const t1=document.getElementById('okTotal');if(t1)t1.textContent=keys.length;const tb=document.getElementById('okTable');if(!tb)return;tb.innerHTML='';keys.sort((a,b)=>cmpVal(okVal(okWords[a],okSort.key),okVal(okWords[b],okSort.key),okSort.key)*okSort.dir);keys.forEach(k=>{const m=okWords[k];okWords[k]._k=k;const mt=(m.mt||(k.indexOf('cj:')===0?'cj':(k.indexOf('sc:')===0?'sc':'jyut')));const jshow=(mt==='jyut'?disp(m.j):m.j);const tr=document.createElement('tr');tr.innerHTML='<td style="font-size:22px;font-weight:900">'+mtBadge(m)+m.c+'</td><td><span class="kbd">'+jshow+'</span></td><td>'+m.ok+'</td><td>'+(m.tries!=null?m.tries+'次':'—')+'</td><td style="white-space:nowrap;font-size:12px;color:var(--muted)">'+fmtT(m.t)+'</td><td><button data-k="'+k+'" class="delOkBtn">刪除</button></td>';tb.appendChild(tr);});tb.querySelectorAll('.delOkBtn').forEach(b=>{b.onclick=()=>{delete okWords[b.dataset.k];saveOk();};});syncSortHeaders();try{updateStats();}catch(e){}}
 function norm(s){return (s||'').toLowerCase().trim().replace(/\s+/g,' ');}
 function noTone(s){return norm(s).replace(/[1-6]/g,'').trim().replace(/\s+/g,' ');}
 function disp(j){return noTone(j);}
 const _dispCache=new Map();
 function dispC(j){let d=_dispCache.get(j);if(d===undefined){d=disp(j);_dispCache.set(j,d);}return d;}
 function altOk(ch,user){try{const st=ALTREAD.get(ch);return !!(st&&st.has(user));}catch(e){return false;}}
+function allReads(ch){try{const st=ALTREAD.get(ch);if(!st||st.size<=1)return null;const arr=[...st];let p='';try{p=noTone(PRI.get(ch)||'');}catch(e){p='';}arr.sort(function(a,b){if(a===p)return -1;if(b===p)return 1;return a<b?-1:1;});return {list:arr,prim:p};}catch(e){return null;}}
+function altHtml(ch){try{if(curMethod!=='jyut')return '';if([...(ch||'')].length!==1)return '';const r=allReads(ch);if(!r||!r.list||r.list.length<=1)return '';return '<div style="color:var(--muted);margin-top:6px">全部讀音：'+r.list.join(' · ')+'</div>';}catch(e){return '';}}
 // CANGJIE / QUICK（倉頡五代 + 速成頭尾碼，由 dict-cangjie.js 載入）
 let CJMAP=new Map();
 try{
@@ -495,7 +500,6 @@ let LV_S={easy:[],medium:[],hard:[],hell:[]}, ALL_S=[], ALTREAD=new Map(), PRI=n
 const DIFF_ORDER=['easy','medium','hard','hell','mix'];
 const DIFF_META={easy:{lv:'LV.1',name:'初級',tag:'日常常用',singles:0,words:0},medium:{lv:'LV.2',name:'中級',tag:'生活進階',singles:0,words:0},hard:{lv:'LV.3',name:'高級',tag:'地道口語',singles:0,words:0},hell:{lv:'LV.4',name:'地獄級',tag:'罕字靚字',singles:0,words:0},mix:{lv:'MIX',name:'混合',tag:'包羅萬有',singles:0,words:0}};
 function fmtN(n){return n>=10000?(n/10000).toFixed(1)+'萬':String(n);}
-let sliderBaseInfo='';
 function modeProgress(g){
 try{
 const pool=(g==='word')?wordPool():curatedSingles();
@@ -503,15 +507,6 @@ if(!pool||!pool.length)return{n:0,total:0,p:0};
 let n=0;for(const it of pool){if(isDone(it[0]))n++;}
 return{n:n,total:pool.length,p:n/pool.length};
 }catch(e){return{n:0,total:0,p:0};}
-}
-function renderWater(){
-try{
-const vis=(function(){try{return visiblePanel();}catch(e){return 'type';}})();
-const r=(vis==='word')?modeProgress('word'):modeProgress('type');
-const inf=document.getElementById('sliderInfo');if(!inf)return;
-const pc=r.p*100,ps=(pc>=10?Math.round(pc):Math.round(pc*10)/10);
-inf.textContent=(r.total?('已完成 '+ps+'%（'+r.n+'/'+r.total+'）'):'');
-}catch(e){}
 }
 function renderSlider(){
 try{
@@ -598,14 +593,7 @@ function curatedSingles(){let base;if(!LV_S.easy.length){if(curDiff==='mix')base
 function getPool(){return curatedSingles();}
 function wordPool(){let base;if(!AUTO_W.easy.length){base=DB.words;}else{if(curDiff==='mix')base=ALL_MIX_W;else base=AUTO_W[curDiff]||AUTO_W.easy;}if(curMethod==='jyut')return base;try{return base.filter(hasCJ);}catch(e){return base;}}
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function updateStats(){document.getElementById('score').textContent=score;document.getElementById('streak').textContent=streak;document.getElementById('wrongCount').textContent=wrongTotal;const q=document.getElementById('qnum');if(q)q.textContent=(totals[curMethod]||0);try{document.getElementById('streak').closest('.stats').classList.toggle('hot',streak>=5);}catch(e){}try{renderWater();}catch(e){}}
-let totals={jyut:0,cj:0,sc:0};
-try{
-const t=JSON.parse(localStorage.getItem('hktype_totals')||'null');
-if(t&&typeof t==='object'){for(const k of ['jyut','cj','sc']){totals[k]=parseInt(t[k]||'0',10)||0;}}
-else{const legacy=parseInt(localStorage.getItem('hktype_total')||'0',10)||0;totals.jyut=legacy;try{localStorage.setItem('hktype_totals',JSON.stringify(totals));}catch(e){}}
-}catch(e){totals={jyut:0,cj:0,sc:0};}
-function bumpTotal(){const m=(['jyut','cj','sc'].indexOf(curMethod)<0?'jyut':curMethod);totals[m]=(totals[m]||0)+1;try{localStorage.setItem('hktype_totals',JSON.stringify(totals));}catch(e){}const q=document.getElementById('qnum');if(q)q.textContent=totals[m];}
+function updateStats(){const st=document.getElementById('streak');if(st)st.textContent=streak;const mx=document.getElementById('maxStreak');if(mx)mx.textContent=maxStreak;try{const vis=(function(){try{return visiblePanel();}catch(e){return 'type';}})();const r=(vis==='word')?modeProgress('word'):modeProgress('type');const pc=r.p*100,ps=(pc>=10?Math.round(pc):Math.round(pc*10)/10);const dp=document.getElementById('donePct');if(dp)dp.textContent=(r.total?ps+'%':'—');const dc=document.getElementById('doneCount');if(dc)dc.textContent=(r.total?(r.n+'/'+r.total):'—');}catch(e){}try{document.getElementById('streak').closest('.stats').classList.toggle('hot',streak>=5);}catch(e){}}
 function addMistake(c,j,user){const k=methodKey(c);const dj=(curMethod==='jyut'?disp(j):normCode(j));if(!mistakes[k])mistakes[k]={_k:k,c:c,j:dj,mt:curMethod,miss:0,lastUser:''};mistakes[k].miss++;const u=String(user||'');mistakes[k].lastUser=(u.indexOf('揀錯:')===0||u.indexOf('(跳過)')===0?u:(curMethod==='jyut'?noTone(u):normCode(u)));mistakes[k].j=dj;mistakes[k].mt=curMethod;mistakes[k]._k=k;mistakes[k].t=Date.now();saveMist();}
 function isDone(c){try{if(curMethod==='jyut'){if(okWords[c])return true;if(okWords['jy:'+c])return true;return false;}return !!okWords[methodKey(c)];}catch(e){return false;}}
 // 重出邏輯：啱唔再出（識字庫排除），錯隔幾題再出直到啱
@@ -671,7 +659,7 @@ drawType(it);return;
 }
 typeDone('呢個難度全部識晒');
 }
-function checkType(){const s=state.type;if(s.locked||!s.cur)return;const raw=document.getElementById('input-type').value;const user=normUser(raw);const ans=ansForChar(s.cur[0],s.cur[1]);const fb=document.getElementById('fb-type');s.locked=true;const inp=document.getElementById('input-type');inp.readOnly=true;const nextBtn=document.getElementById('btn-next-type');nextBtn.style.display='block';bumpTries(s.cur[0]);if(ans==null){fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">NO CODE · 呢個字暫時冇倉頡碼</div><div>跳過佢先啦。</div></div></div>';streak=0;wrongTotal++;bumpTotal();updateStats();showFb(fb);setTimeout(()=>focusNoJump(nextBtn),30);return;}const ansD=ans;let rad='';if(curMethod==='cj')rad='（'+cjRad(ans)+'）';else if(curMethod==='sc'){const full=(cjCode(s.cur[0])||'');rad='（'+cjRad(ans)+' · 全碼 '+full+' '+cjRad(full)+'）';}const okAlt=(curMethod==='jyut'&&(user===ans||altOk(s.cur[0],user)));const okCj=(curMethod!=='jyut'&&user===ans);if(((okAlt||okCj))&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 答啱，已存入識字庫，1秒後自動下一題</div><b>做得好</b><div>'+s.cur[0]+' = '+ansD+' '+rad+'</div>'+((curMethod==='jyut'&&user!==ans)?'<div style="color:var(--muted);margin-top:6px">你打咗 '+user+'，都啱 — 多音字，常用讀音係 '+ansD+'</div>':'')+'</div></div></div>';score+=10+streak*2;streak++;addOk(s.cur[0],ansD);bumpTotal();updateStats();showFb(fb);autoNext(newType);}else{fb.className='feedback no';const verb=(curMethod==='jyut'?'應該讀':'倉頡碼係');fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW · 睇清楚，已存入錯題庫，隔幾題會再出</div><div class="corr">'+s.cur[0]+' '+verb+'</div><div class="py-big">'+ansD+' <span style="font-size:15px;color:var(--muted)">'+rad+'</span></div><div>你打咗：'+(user||'(空白)')+'</div><div style="color:var(--muted);margin-top:6px">記住佢，再撳 Enter / 下一題。</div></div></div>';streak=0;wrongTotal++;addMistake(s.cur[0],ansD,user);pushRetry(retryType,s.cur);bumpTotal();updateStats();showFb(fb);setTimeout(()=>focusNoJump(nextBtn),30);}}
+function checkType(){const s=state.type;if(s.locked||!s.cur)return;const raw=document.getElementById('input-type').value;const user=normUser(raw);const ans=ansForChar(s.cur[0],s.cur[1]);const fb=document.getElementById('fb-type');s.locked=true;const inp=document.getElementById('input-type');inp.readOnly=true;const nextBtn=document.getElementById('btn-next-type');nextBtn.style.display='block';bumpTries(s.cur[0]);if(ans==null){fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">NO CODE · 呢個字暫時冇倉頡碼</div><div>跳過佢先啦。</div></div></div>';streak=0;updateStats();showFb(fb);setTimeout(()=>focusNoJump(nextBtn),30);return;}const ansD=ans;let rad='';if(curMethod==='cj')rad='（'+cjRad(ans)+'）';else if(curMethod==='sc'){const full=(cjCode(s.cur[0])||'');rad='（'+cjRad(ans)+' · 全碼 '+full+' '+cjRad(full)+'）';}const okAlt=(curMethod==='jyut'&&(user===ans||altOk(s.cur[0],user)));const okCj=(curMethod!=='jyut'&&user===ans);if(((okAlt||okCj))&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 答啱，已存入識字庫，1秒後自動下一題</div><b>做得好</b><div>'+s.cur[0]+' = '+ansD+' '+rad+'</div>'+((curMethod==='jyut'&&user!==ans)?'<div style="color:var(--muted);margin-top:6px">你打咗 '+user+'，都啱 — 多音字，常用讀音係 '+ansD+'</div>':'')+'</div></div></div>';bumpStreak();addOk(s.cur[0],ansD);updateStats();showFb(fb);autoNext(newType);}else{fb.className='feedback no';const verb=(curMethod==='jyut'?'應該讀':'倉頡碼係');fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW · 睇清楚，已存入錯題庫，隔幾題會再出</div><div class="corr">'+s.cur[0]+' '+verb+'</div><div class="py-big">'+ansD+' <span style="font-size:15px;color:var(--muted)">'+rad+'</span></div>'+altHtml(s.cur[0])+'<div>你打咗：'+(user||'(空白)')+'</div><div style="color:var(--muted);margin-top:6px">記住佢，再撳 Enter / 下一題。</div></div></div>';streak=0;addMistake(s.cur[0],ansD,user);pushRetry(retryType,s.cur);updateStats();showFb(fb);setTimeout(()=>focusNoJump(nextBtn),30);}}
 // WORD
 function drawWord(item){
 const s=state.word;s.cur=item;s.locked=false;
@@ -708,7 +696,7 @@ drawWord(it);return;
 }
 wordDone();
 }
-function checkWord(){const s=state.word;if(s.locked||!s.cur)return;const user=normUser(document.getElementById('input-word').value);const ans=ansForWordItem(s.cur);const fb=document.getElementById('fb-word');s.locked=true;const inp=document.getElementById('input-word');inp.readOnly=true;const nb=document.getElementById('btn-next-word');nb.style.display='block';bumpTries(s.cur[0]);if(ans==null){fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">NO CODE</div>呢個詞有字暫時冇倉頡碼，跳過佢先啦。</div></div>';bumpTotal();updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);return;}const ansD=ans;if(user===ans&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 答啱，已存入識字庫，1秒後自動下一題</div><b>啱晒</b><div>'+s.cur[0]+' = '+ansD+'</div></div></div>';score+=20+streak*2;streak++;addOk(s.cur[0],ansD);bumpTotal();updateStats();showFb(fb);autoNext(newWord);}else{fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW · 睇清楚，已存入錯題庫，隔幾題會再出</div><div class="corr">'+s.cur[0]+'</div><div class="py-big">'+ansD+'</div><div>你打咗：'+(user||'(空白)')+'</div><div>睇清楚先撳 Enter / 下一題。</div></div></div>';streak=0;wrongTotal++;addMistake(s.cur[0],ansD,user);pushRetry(retryWord,s.cur);bumpTotal();updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);}}
+function checkWord(){const s=state.word;if(s.locked||!s.cur)return;const user=normUser(document.getElementById('input-word').value);const ans=ansForWordItem(s.cur);const fb=document.getElementById('fb-word');s.locked=true;const inp=document.getElementById('input-word');inp.readOnly=true;const nb=document.getElementById('btn-next-word');nb.style.display='block';bumpTries(s.cur[0]);if(ans==null){fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">NO CODE</div>呢個詞有字暫時冇倉頡碼，跳過佢先啦。</div></div>';updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);return;}const ansD=ans;if(user===ans&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 答啱，已存入識字庫，1秒後自動下一題</div><b>啱晒</b><div>'+s.cur[0]+' = '+ansD+'</div></div></div>';bumpStreak();addOk(s.cur[0],ansD);updateStats();showFb(fb);autoNext(newWord);}else{fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW · 睇清楚，已存入錯題庫，隔幾題會再出</div><div class="corr">'+s.cur[0]+'</div><div class="py-big">'+ansD+'</div><div>你打咗：'+(user||'(空白)')+'</div><div>睇清楚先撳 Enter / 下一題。</div></div></div>';streak=0;addMistake(s.cur[0],ansD,user);pushRetry(retryWord,s.cur);updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);}}
 // MIST
 function defaultDir(key){return (key==='miss'||key==='ok'||key==='tries'||key==='t')?-1:1;}
 function parseSort(stored,fallback){let key=fallback,dir=defaultDir(fallback);if(stored){const m=String(stored).match(/^(char|j|lastUser|miss|ok|tries|t)-(asc|desc)$/);if(m){key=m[1];dir=(m[2]==='asc'?1:-1);}else if(stored==='miss'){key='miss';dir=-1;}else if(stored==='ok'){key='ok';dir=-1;}else if(stored==='time'){key='t';dir=-1;}}return {key:key,dir:dir};}
@@ -730,10 +718,10 @@ let mistQueue=[],mistIdx=0,mistCur=null,mistLocked=false;
 function mistMethodOf(m,k){if(m&&m.mt)return m.mt;if((m&&m._k||k||'').indexOf('cj:')===0)return 'cj';if((m&&m._k||k||'').indexOf('sc:')===0)return 'sc';return 'jyut';}
 function startMistPractice(){const all=Object.values(mistakes);const ks=Object.keys(mistakes);const filt=all.filter(function(m,i){return mistMethodOf(m,ks[i])===curMethod;});if(filt.length===0){alert(curMethod==='jyut'?'錯題庫（粵拼）係空嘅，打錯幾題先啦！':'錯題庫（'+methodName(curMethod)+'）係空嘅，轉去打字玩幾題先啦！');return;}mistQueue=shuffle(filt);mistIdx=0;document.getElementById('mistPracticeBox').style.display='block';nextMist();}
 function nextMist(){if(mistIdx>=mistQueue.length){const all=Object.values(mistakes);const ks=Object.keys(mistakes);const filt=all.filter(function(m,i){return mistMethodOf(m,ks[i])===curMethod;});if(!filt.length){document.getElementById('mistPracticeBox').style.display='none';return;}mistQueue=shuffle(filt);mistIdx=0;}mistCur=mistQueue[mistIdx++];mistLocked=false;document.getElementById('mistQ').textContent=mistCur.c;document.getElementById('mistQcount').textContent='第'+mistIdx+' / '+mistQueue.length+' · 之前錯咗'+mistCur.miss+'次 · 上次打錯：'+(mistCur.lastUser||'');const inp=document.getElementById('input-mist');inp.value='';inp.disabled=false;applyVKReadonly(inp);const mt=mistMethodOf(mistCur,mistCur._k);inp.placeholder=(mt==='jyut'?'打粵拼，唔使聲調':(mt==='cj'?'打倉頡全碼':'打速成碼（頭尾）'));const fb=document.getElementById('fb-mist');fb.className='feedback';fb.innerHTML='';document.getElementById('btn-next-mist').style.display='none';setTimeout(()=>focusNoJump(inp),30);}
-function checkMist(){if(mistLocked||!mistCur)return;const mt=mistMethodOf(mistCur,mistCur._k);const raw=document.getElementById('input-mist').value;const user=(mt==='jyut'?noTone(raw):normCode(raw));const ans=(mt==='jyut'?noTone(mistCur.j):normCode(mistCur.j));const ansD=(mt==='jyut'?disp(mistCur.j):normCode(mistCur.j));const fb=document.getElementById('fb-mist');mistLocked=true;document.getElementById('input-mist').readOnly=true;const nb=document.getElementById('btn-next-mist');nb.style.display='block';bumpTries(mistCur.c);const wasJyut=(curMethod==='jyut'&&mt==='jyut');if(((wasJyut&&(user===ans||altOk(mistCur.c,user)))||(!wasJyut&&user===ans))&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 1秒後自動下一題</div>啱咗：'+mistCur.c+' = '+ansD+'<br>已存入識字庫，想佢喺錯題消失可以撳下面刪除。'+((wasJyut&&user!==ans)?'<br><span style="color:var(--muted)">你打咗 '+user+'，都啱 — 多音字，常用讀音係 '+ansD+'</span>':'')+'</div></div>';score+=10;streak++;addOk(mistCur.c,ansD);bumpTotal();updateStats();showFb(fb);autoNext(nextMist);}else{fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW</div>未啱，正確係 <div class="py-big">'+ansD+'</div>你打咗：'+(user||'(空白)')+'</div></div>';mistCur.miss++;const kk=mistCur._k||mistCur.c;if(mistakes[kk]){mistakes[kk].miss++;mistakes[kk].lastUser=user;mistakes[kk].t=Date.now();saveMist();}streak=0;wrongTotal++;bumpTotal();updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);}}
+function checkMist(){if(mistLocked||!mistCur)return;const mt=mistMethodOf(mistCur,mistCur._k);const raw=document.getElementById('input-mist').value;const user=(mt==='jyut'?noTone(raw):normCode(raw));const ans=(mt==='jyut'?noTone(mistCur.j):normCode(mistCur.j));const ansD=(mt==='jyut'?disp(mistCur.j):normCode(mistCur.j));const fb=document.getElementById('fb-mist');mistLocked=true;document.getElementById('input-mist').readOnly=true;const nb=document.getElementById('btn-next-mist');nb.style.display='block';bumpTries(mistCur.c);const wasJyut=(curMethod==='jyut'&&mt==='jyut');if(((wasJyut&&(user===ans||altOk(mistCur.c,user)))||(!wasJyut&&user===ans))&&user!==''){fb.className='feedback ok';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✓</div><div><div class="tag">CORRECT · 1秒後自動下一題</div>啱咗：'+mistCur.c+' = '+ansD+'<br>已存入識字庫，想佢喺錯題消失可以撳下面刪除。'+((wasJyut&&user!==ans)?'<br><span style="color:var(--muted)">你打咗 '+user+'，都啱 — 多音字，常用讀音係 '+ansD+'</span>':'')+'</div></div>';bumpStreak();addOk(mistCur.c,ansD);updateStats();showFb(fb);autoNext(nextMist);}else{fb.className='feedback no';fb.innerHTML='<div class="fb-wrap"><div class="big-mark">✕</div><div><div class="tag">REVIEW</div>未啱，正確係 <div class="py-big">'+ansD+'</div>'+altHtml(mistCur.c)+'你打咗：'+(user||'(空白)')+'</div></div>';mistCur.miss++;const kk=mistCur._k||mistCur.c;if(mistakes[kk]){mistakes[kk].miss++;mistakes[kk].lastUser=user;mistakes[kk].t=Date.now();saveMist();}streak=0;updateStats();showFb(fb);setTimeout(()=>focusNoJump(nb),30);}}
 // NAV
-document.querySelectorAll('.tab').forEach(t=>{t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');const g=t.dataset.game;['type','word','mistake','correct'].forEach(k=>{document.getElementById('panel-'+k).style.display=(k===g?'block':'none');});try{renderWater();}catch(e){}};});
-function setDiff(k){if(DIFF_ORDER.indexOf(k)<0)k='easy';clearAuto();curDiff=k;state.type.pool=[];state.type.idx=0;state.word.pool=[];state.word.idx=0;retryType=[];retryWord=[];recentWord=[];newType();newWord();renderSlider();}
+document.querySelectorAll('.tab').forEach(t=>{t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');const g=t.dataset.game;['type','word','mistake','correct'].forEach(k=>{document.getElementById('panel-'+k).style.display=(k===g?'block':'none');});try{updateStats();}catch(e){}};});
+function setDiff(k){if(DIFF_ORDER.indexOf(k)<0)k='easy';clearAuto();curDiff=k;try{localStorage.setItem('hktype_diff',k);}catch(e){}state.type.pool=[];state.type.idx=0;state.word.pool=[];state.word.idx=0;retryType=[];retryWord=[];recentWord=[];newType();newWord();renderSlider();updateStats();}
 (function(){try{document.querySelectorAll('#diffBtns button').forEach(function(b){b.onclick=function(){setDiff(b.dataset.d);};});}catch(e){}})();
 document.getElementById('btn-check-type').onclick=checkType;
 document.getElementById('btn-next-type').onclick=newType;
@@ -930,7 +918,6 @@ renderKeyboards();applyAllVKReadonly();
 try{if(document.body&&document.body.classList)document.body.classList.toggle('side-cj',curMethod!=='jyut');}catch(e){}
 try{const w=document.getElementById('cjTableWrap');if(w)w.style.display=(curMethod==='jyut'?'none':'block');}catch(e){}
 try{placeGuide();}catch(e){}
-try{renderWater();}catch(e){}
 }
 function setMethod(m,silent){
 if(['jyut','cj','sc'].indexOf(m)<0)m='jyut';
